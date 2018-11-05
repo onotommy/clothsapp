@@ -1,0 +1,33 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">新規ユーザー登録</div>
+    <div class="form users-form">
+      <div class="form-body">
+         <% @user.errors.full_messages.each do |message| %>
+         <div class="form-error">
+           <%= message %>
+          </div>
+        <% end %>
+        <%= form_tag("/users/create") do %>
+        <p>Mail Adress</p>
+        <input name="email" value="<%= @user.email %>">
+        <p>Password</p>
+        <input name="password" type="password" value="<%= @user.password %>">
+        <p>Nickname</p>
+        <input name="nickname" value="<%= @user.nickname %>">
+        <p>Gender</p>
+        <select name= "gender" value="<%= @user.gender %>">
+         <option value="">選択してください</option>
+         <option value="1"> Male </option>
+         <option value="2"> Female </option>
+        </select>
+        <p>Height (cm)</p>
+        <input name="tall" value="<%= @user.tall %>">
+        <p>Weight (kg)</p>
+        <input name="weight" value="<%= @user.weight %>">
+        <input type="submit" value="Make your account">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

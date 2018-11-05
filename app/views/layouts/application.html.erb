@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>StyleLog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    
+  </head>
+
+<header>
+  <div class="header-logo">
+    <% if @current_user %>
+     <%= link_to("StyleLog", "/posts/index") %>
+    <% else %>
+     <%= link_to("StyleLog", "/") %>
+    <% end %>
+  </div>  
+  <ul class="header-menus">
+    <% current_user = User.find_by(id: session[:user_id])%>
+    <% if @current_user %>
+    <li>
+      <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
+    </li>
+    <li>
+      <%=link_to("投稿一覧", "/posts/index") %>
+    </li>
+     <li>
+      <%=link_to("新規投稿", "/posts/new") %>
+    </li>
+     <li>
+      <%=link_to("ユーザー一覧", "/users/index") %>
+     </li>
+    <li>
+      <%=link_to("ログアウト", "/logout", method: :post) %>
+    </li>
+    
+    <% else %>  
+    
+    <li>
+      <%=link_to("StyleLogとは", "/about") %>
+    </li>
+    <li>
+      <%=link_to("新規登録", "/signup") %>
+    </li>
+    <li>
+      <%=link_to("Log in", "/login") %>
+    </li>
+    
+     <li>
+      <%=link_to("Log out", "/logout", method: :post) %>
+    </li>
+    
+    <li>
+      <%=link_to("Situation", "/") %>
+    </li>
+    
+    <li>
+      <%=link_to("Season", "/") %>
+    </li>
+    
+   <% end %>
+     
+  </ul>
+</header>
+
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
