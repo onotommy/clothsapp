@@ -1,0 +1,60 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading"> Upload Log </div>
+    <div class="form users-form">
+      <div class="form-body">
+        
+        <%= form_tag("/histories", {multipart:true}) do %>
+        <p>Date
+        <input name="wore_data" type="date"></p>
+        <p>Image
+        <input name="main_image" type="file" ></p>
+        <p>Situation
+        <input name="situation" type="text" ></p>
+        <p>Memo<br>
+        <textarea rows="10" cols="60", name="memo">Memoを入してください</textarea></p>
+        
+        <p>Item</p>
+        <p>Tops</p>
+         <p>Category <select name = "category">
+           <option value="">選択してください</option>
+           <option value="s"> シャツ </option>
+           <option value="j"> ジャケット </option>
+           <option value="su"> スーツ </option>
+         </select>
+         </p>
+         <p>Brand <input name="brand" type="text" ></p>
+         <p>Size <select name="size">
+          <option value="">選択してください</option>
+          <option value="S"> S </option>
+          <option value="M"> M </option>
+          <option value="L"> L </option>
+         </select>
+         </p>
+         <p>Color <input name="color" type="text" ></p>
+         
+         <p>Bottoms</p>
+         <p>Category <select name = "category_bottom">
+           <option value="">選択してください</option>
+           <option value="p"> パンツ </option>
+           <option value="sk"> スカート </option>
+           <option value="su_b"> スーツ </option>
+         </select>
+         </p>
+         <p>Brand <input name="brand_bottom" type="text" ></p>
+         <p>Size
+         <select name="size_bottom">
+          <option value="">選択してください</option>
+          <option value="S"> S </option>
+          <option value="M"> M </option>
+          <option value="L"> L </option>
+         </select>
+         </p>
+         <p>Color <input name="color_bottom" type="text" ></p>
+         
+         <input type="submit" value="Next">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

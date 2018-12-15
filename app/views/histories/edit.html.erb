@@ -1,0 +1,39 @@
+<%= form_for @history do |form| %>
+<%= form.label :Date %>
+         <%= form.date_field :wore_data %><br>
+         
+         <%= form.label :Image, '画像ファイル...' %>
+         <%= form.file_field :main_image %><br>
+         
+         <%= form.label :Situation %>
+         <%= form.text_field :situation %>
+         
+         <%= form.label :Memo %>
+         <%= form.text_area :memo, :size => "60x10" %><br>
+ 
+ <%= fields_for @cloth do |af|%>
+         
+  <% @history_details.each do |history_detail| %>
+  <% cloth = Cloth.find(history_detail.cloth_id ) %>
+ 
+          <%= cloth.label :Item %>
+          
+          <%= cloth.label :Brand %>
+          <%= cloth.text_field :brand, value%><br>
+          <%= cloth.label :Size %>
+          <%= cloth.text_field :size %><br>
+          <%= cloth.label :Color %>
+          <%= cloth.text_field :color %><br>
+          
+          
+          <%= cloth.label :Brand %>
+          <%= cloth.text_field :brand %><br>
+          <%= cloth.label :Size %>
+          <%= cloth.text_field :size %><br>
+          <%= cloth.label :Color %>
+          <%= cloth.text_field :color %><br>
+         
+          <% end %>
+   <% end %>
+  <%= form.submit "Save" %>
+<% end %>

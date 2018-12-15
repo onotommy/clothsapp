@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_22_120343) do
+ActiveRecord::Schema.define(version: 2018_11_21_000128) do
+
+  create_table "cloths", force: :cascade do |t|
+    t.string "size"
+    t.string "category"
+    t.string "color"
+    t.string "brand"
+    t.string "cloths_image"
+    t.string "memo"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "histories", force: :cascade do |t|
+    t.date "wore_data"
+    t.text "memo"
+    t.string "main_image"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "situation"
+  end
+
+  create_table "history_details", force: :cascade do |t|
+    t.integer "hisotry_id"
+    t.string "cloth_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"

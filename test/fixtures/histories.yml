@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wore_data: 2018-11-17
+  memo: MyText
+  main_image: MyString
+  user_id: 1
+
+two:
+  wore_data: 2018-11-17
+  memo: MyText
+  main_image: MyString
+  user_id: 1
