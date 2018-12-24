@@ -71,8 +71,13 @@ class HistoriesController < ApplicationController
       @history_details = HistoryDetail.where(hisotry_id: params[:id])
       
       @history_details.each do |history_detail|
-      @cloth = Cloth.find(history_detail.cloth_id )
+      @cloth = Cloth.where(id: history_detail.cloth_id )
+     end
+     
   end
+  
+  def update
+      
   end
 
 end
