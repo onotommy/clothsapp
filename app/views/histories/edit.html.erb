@@ -1,30 +1,32 @@
-<%= form_for @history do |form| %>
-<%= form.label :Date %>
-         <%= form.date_field :wore_data %><br>
-         
-         <%= form.label :Image, '画像ファイル...' %>
-         <%= form.file_field :main_image %><br>
-         
-         <%= form.label :Situation %>
-         <%= form.text_field :situation %>
-         
-         <%= form.label :Memo %>
-         <%= form.text_area :memo, :size => "60x10" %><br>
- 
- <%= fields_for @cloth do |cloth|%>
-   <%= @cloths.each do |cloth| %>
+<%= form_tag @history do |form| %>
+ <%= form_tag("/histories", {multipart:true}) do %>
+        <p>Date
+        <input name="wore_data" type="date", value = <%= @history.wore_data %>></p>
+        <p>Image
+        <input name="main_image" type="file" ></p>
+        <p>Situation
+        <input name="situation" type="text", value = <%= @history.situation %>></p>
+        <p>Memo<br>
+        <textarea rows="10" cols="60", name="memo" ><%= @history.memo %></textarea></p>
 
-          <p>Item</p><br>
-          <%= cloth.label :Category>
-          <%= cloth.text_field :category %>
-          <%= cloth.label :Brand %>
-          <%= cloth.text_field :brand %><br>
-          <%= cloth.label :Size %>
-          <%= cloth.text_field :size %><br>
-          <%= cloth.label :Color %>
-          <%= cloth.text_field :color %><br>
+   <% @history_details.each do |history_detail| %>
+   <% cloth = Cloth.find(history_detail.cloth_id) %>
+   
+          <p>Item</p>
+           <p>Category
+            <% if cloth.category == "s" || cloth.category == "j" || cloth.category == "su" %>
+             <%= select_tag "category{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["シャツ", "s"], ["ジャケット", "j"], ["スーツ", "su"]], {:selected => cloth.category })%>
+            <% else %>
+             <%= select_tag "category{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["パンツ", "p"], ["スカート", "sk"], ["スーツ", "su_b"]], {:selected => cloth.category })%>
+            <% end %>
+           </p>
+         <p>Brand <input name="brand{#@history_detail.cloth_id}", type="text" value= "<%= cloth.brand %>" ></p>
+         <p>Size
+          <%= select_tag "size{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["S", "S"], ["M", "M"], ["L", "L"]], {:selected => cloth.size })%>
+         </p>
+         <p>Color <input name="color{#@history_detail.cloth_id}", type="text" value=<%= cloth.color %>></p>
           
    <% end %>      
  <% end %>
- <%= form.submit "Save" %>
+ <input type="submit" value="Save">
 <% end %>
