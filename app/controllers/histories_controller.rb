@@ -63,7 +63,7 @@ class HistoriesController < ApplicationController
   end
   
   def show
-    @histories = History.where(user_id: params[:id])
+    @histories = History.where(user_id: params[:id]).order(created_at: :desc)
   end 
   
   def edit
@@ -77,7 +77,20 @@ class HistoriesController < ApplicationController
   end
   
   def update
-      logger.debug("----------params=#{params[:"category-i"]}")
+     logger.debug("----------params=#{params[:id]}")
+      
+     @history_details = HistoryDetail.where(hisotry_id: params[:id])
+     @history_details.each do |history_detail|
+      cloth = Cloth.find(history_detail.cloth_id)
+     
+     logger.debug("----------category = #{params[cloth.id]}")
+      
+      
+      
+      
+      
+     end
+      
       
   end
 

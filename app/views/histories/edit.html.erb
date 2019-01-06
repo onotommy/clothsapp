@@ -1,5 +1,5 @@
-<%= form_tag @history do |form| %>
- <%= form_tag("/histories", {multipart:true}) do %>
+<div class = "history_main">
+<%= form_tag("/histories/#{@history.id}", method: :patch, multipart: true) do %>
         <p>Date
         <input name="wore_data" type="date", value = <%= @history.wore_data %>></p>
         <p>Image
@@ -11,22 +11,24 @@
 
    <% @history_details.each do |history_detail| %>
    <% cloth = Cloth.find(history_detail.cloth_id) %>
-   
+     <div class = "history_item">
           <p>Item</p>
            <p>Category
             <% if cloth.category == "s" || cloth.category == "j" || cloth.category == "su" %>
-             <%= select_tag "category{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["シャツ", "s"], ["ジャケット", "j"], ["スーツ", "su"]], {:selected => cloth.category })%>
+             <%= select_tag "category[#{history_detail.cloth_id}]", options_for_select([["選択してください", ""], ["シャツ", "s"], ["ジャケット", "j"], ["スーツ", "su"]], {:selected => cloth.category })%>
             <% else %>
-             <%= select_tag "category{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["パンツ", "p"], ["スカート", "sk"], ["スーツ", "su_b"]], {:selected => cloth.category })%>
+             <%= select_tag "category[#{history_detail.cloth_id}]", options_for_select([["選択してください", ""], ["パンツ", "p"], ["スカート", "sk"], ["スーツ", "su_b"]], {:selected => cloth.category })%>
             <% end %>
            </p>
-         <p>Brand <input name="brand{#@history_detail.cloth_id}", type="text" value= "<%= cloth.brand %>" ></p>
+         <p>Brand <input name="brand[<%= history_detail.cloth_id %>]", type="text" value= "<%= cloth.brand %>" ></p>
          <p>Size
-          <%= select_tag "size{#@history_detail.cloth_id}", options_for_select([["選択してください", ""], ["S", "S"], ["M", "M"], ["L", "L"]], {:selected => cloth.size })%>
+          <%= select_tag "size[#{history_detail.cloth_id}]", options_for_select([["選択してください", ""], ["S", "S"], ["M", "M"], ["L", "L"]], {:selected => cloth.size })%>
          </p>
-         <p>Color <input name="color{#@history_detail.cloth_id}", type="text" value=<%= cloth.color %>></p>
-          
-   <% end %>      
+         <p>Color <input name="color[<%= history_detail.cloth_id %>]", type="text" value=<%= cloth.color %>></p>
+     </div>
+   
+   <% end %>
+  <input type="submit" value="Save">
  <% end %>
- <input type="submit" value="Save">
-<% end %>
+
+</div>

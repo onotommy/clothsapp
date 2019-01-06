@@ -1,5 +1,8 @@
+<div class = "history_main">
 <% @histories.each do |history| %>
+<div class = "each_history">
 <%= history.wore_data %></br>
 <%= link_to image_tag("/history_images/#{history.id}.jpg", {:class => "main_image", :border => '0', :alt => 'Edit'}), edit_history_path(history.id) %></br>
-
+</div>
 <% end %>
+</div>

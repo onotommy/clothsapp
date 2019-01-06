@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post "logout" => "users#logout"
   get "users/:id" => "users#show"
   
+  post "histories/:id" => "histories#update"
   resources :histories
   
   
