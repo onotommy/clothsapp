@@ -39,7 +39,7 @@ class HistoriesController < ApplicationController
           @history = History.last
           @cloth = Cloth.last
           @history_detail = HistoryDetail.new(
-              hisotry_id: @history.id, cloth_id: @cloth.id)
+              history_id: @history.id, cloth_id: @cloth.id)
         if@history_detail.save
          @his_save_success_flag = 3
         end
@@ -53,7 +53,7 @@ class HistoriesController < ApplicationController
          @history = History.last
          @cloth = Cloth.last
          @history_detail = HistoryDetail.new(
-              hisotry_id: @history.id, cloth_id: @cloth.id)
+              history_id: @history.id, cloth_id: @cloth.id)
         if @history_detail.save
           redirect_to("/histories/#{@current_user.id}") 
         end
@@ -68,7 +68,7 @@ class HistoriesController < ApplicationController
   
   def edit
       @history = History.find(params[:id])
-      @history_details = HistoryDetail.where(hisotry_id: params[:id])
+      @history_details = HistoryDetail.where(history_id: params[:id])
       
     #   @history_details.each do |history_detail|
     #   @cloth = Cloth.where(id: history_detail.cloth_id )
@@ -78,20 +78,36 @@ class HistoriesController < ApplicationController
   
   def update
      logger.debug("----------params=#{params[:id]}")
-      
-     @history_details = HistoryDetail.where(hisotry_id: params[:id])
+     
+     
+     @history = History.find(params[:id])
+     @history.wore_data = params[:wore_data]
+     @history.situation = params[:situation]
+     @history.memo = params[:memo]
+     
+    if @history.save
+     @history_details = HistoryDetail.where(history_id: params[:id])
      @history_details.each do |history_detail|
       cloth = Cloth.find(history_detail.cloth_id)
+      cloth.category = params[:category][cloth.id.to_s]
+      cloth.brand = params[:brand][cloth.id.to_s]
+      cloth.size = params[:size][cloth.id.to_s]
+      cloth.color = params[:color][cloth.id.to_s]
+      
+      logger.debug("----------cloth.id = #{cloth.id}")
+     logger.debug("----------category = #{params[:category][cloth.id.to_s]}")
      
-     logger.debug("----------category = #{params[cloth.id]}")
-      
-      
-      
-      
+     
       
      end
-      
-      
+    end
+  end
+  
+  def destroy
+    @history = History.find(params[:id])
+    @history.destroy
+    flash[:notice] = "Delete History Log"
+    redirect_to("/histories/#{@current_user.id}")
   end
 
 end

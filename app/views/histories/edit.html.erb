@@ -15,9 +15,9 @@
           <p>Item</p>
            <p>Category
             <% if cloth.category == "s" || cloth.category == "j" || cloth.category == "su" %>
-             <%= select_tag "category[#{history_detail.cloth_id}]", options_for_select([["選択してください", ""], ["シャツ", "s"], ["ジャケット", "j"], ["スーツ", "su"]], {:selected => cloth.category })%>
+             <%= select_tag "category", options_for_select([["選択してください", ""], ["シャツ", "s"], ["ジャケット", "j"], ["スーツ", "su"]], {:selected => cloth.category })%>
             <% else %>
-             <%= select_tag "category[#{history_detail.cloth_id}]", options_for_select([["選択してください", ""], ["パンツ", "p"], ["スカート", "sk"], ["スーツ", "su_b"]], {:selected => cloth.category })%>
+             <%= select_tag "category", options_for_select([["選択してください", ""], ["パンツ", "p"], ["スカート", "sk"], ["スーツ", "su_b"]], {:selected => cloth.category })%>
             <% end %>
            </p>
          <p>Brand <input name="brand[<%= history_detail.cloth_id %>]", type="text" value= "<%= cloth.brand %>" ></p>
